@@ -10,15 +10,19 @@
  */
 var http = require('http');
 const util = require('util');
-
+var async = require ('async');
 
 // --------------- Helpers that build all of the responses -----------------------
 
-function buildSpeechletResponse(title, output, repromptText, shouldEndSession, sessionAttributes) {
+function buildSpeechletResponse(sounds, title, output, repromptText, shouldEndSession) {
     
-    let directive = buildDirectives (searchAnimalSound(sessionAttributes));
+    let directive = [];
 
-    console.log ("directive: " + directive);
+    if (sounds) {
+        let directive = buildDirectives (sounds);
+        console.log ("directive: " + directive);
+    }
+    
     return {
         outputSpeech: {
             type: 'PlainText',
@@ -40,6 +44,11 @@ function buildSpeechletResponse(title, output, repromptText, shouldEndSession, s
     };
 }
 
+
+
+
+
+
 function buildResponse(sessionAttributes, speechletResponse) {
     return {
         version: '1.0',
@@ -48,35 +57,23 @@ function buildResponse(sessionAttributes, speechletResponse) {
     };
 }
 
-function buildDirectives (url) {
-    console.log ("url: " + url);
+function buildDirectives (sounds) {
     let directive = [];
-    if (url && url.length >2) {
+    if (sounds && sounds.length > 2) {
         directive = [
             {
-
                 "type": "AudioPlayer.Play",
-
                 "playBehavior": "REPLACE_ALL",
-
                 "audioItem": {
-
                   "stream": {
-
                     "token": "this-is-the-audio-token",
-
-                    "url": url,
-
+                    "url": sounds[0].url,
                     "offsetInMilliseconds": 0
-
                   }
-
                 }
-
             }
         ]
     } 
-
     return directive;
 }
 
@@ -95,7 +92,7 @@ function getWelcomeResponse(callback) {
     const shouldEndSession = false;
 
     callback(sessionAttributes,
-        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession, sessionAttributes));
+        buildSpeechletResponse(null, cardTitle, speechOutput, repromptText, shouldEndSession));
 }
 
 function handleSessionEndRequest(callback) {
@@ -104,46 +101,52 @@ function handleSessionEndRequest(callback) {
     // Setting this to true ends the session and exits the skill.
     const shouldEndSession = true;
     
-    callback({}, buildSpeechletResponse(cardTitle, speechOutput, null, shouldEndSession,sessionAttributes));
+    callback({}, buildSpeechletResponse(null, cardTitle, speechOutput, null, shouldEndSession));
 }
 
 
 function createSessionAnimalAttributes(favoriteAnimal) {
-    return {
+
+    let resp = {
         favoriteAnimal,
     };
+    console.log("resp:" +util.inspect(resp, false, null));
+    return resp;
 }
 
 
 // searchAnimalSound, returns a list of URLs for the animal in sessionAttirbutes playlist.
-function searchAnimalSound (sessionAttributes){
+function searchAnimalSound (sessionAttributes, cb){
     
     let soundId = null;
     var body = '';
-    let url = "http://www.freesound.org/apiv2/search/text/?query=dogs&token=eKaYrlWbsI7lBdB0TcuGTU8CBVhqECZAMTBD5jgs"
+
+    console.log("sessionAttributess:" +util.inspect(sessionAttributes, false, null));
+
+
+    let url = "http://www.freesound.org/apiv2/search/text/?query=" + sessionAttributes.favoriteAnimal + "&token=eKaYrlWbsI7lBdB0TcuGTU8CBVhqECZAMTBD5jgs"
     console.log('start request to ' + url);
-    console.log('sessionAttributes ' + sessionAttributes);
-
+   
     http.get(url, function(res) {
-
-        console.log("Got response: " + res.statusCode);
 
         res.on('data', function(chunk) {
             body += chunk;
         });
         res.on('end', function() {
-            console.log(body);
             var jsonObject = JSON.parse(body);
             soundId = jsonObject.results;
-            console.log("soundId: " + soundId);
+
+            sessionAttributes.sounds = soundId;
+
+            console.log("soundId: " + util.inspect(soundId, false, null));
+            cb (null, sessionAttributes);
         });
     }).on('error', function(e) {
         console.log("Got error: " + e.message);
+        cb (e.message, null);
     });
 
-    console.log('end request to ' + url + body.results);
-
-    return soundId;
+    
 }
 
 /**
@@ -159,20 +162,55 @@ function setAnimalInSession(intent, session, callback) {
 
     if (favoriteAnimalSlot) {
         const favoriteAnimal = favoriteAnimalSlot.value;
+
+
         sessionAttributes = createSessionAnimalAttributes(favoriteAnimal);
         speechOutput = `I now know your Animal is ${favoriteAnimal}. You can ask me ` +
             "your current Animal by saying, what's my Animal?";
         repromptText = "You can ask me your current Animal by saying, what's my Animal?";
-        searchAnimalSound (favoriteAnimal);
+
+
+        async.waterfall([
+                searchAnimalSound(sessionAttributes,cb)          
+            ],
+            function (err, results) {
+                console.log (results);
+                callback(sessionAttributes,
+                    buildSpeechletResponse(sessionAttributes.sound, cardTitle, speechOutput, repromptText, shouldEndSession));
+            }
+        );         
+
     } else {
         speechOutput = "I'm not sure what your Animal is. Please try again.";
         repromptText = "I'm not sure what your Animal is. You can tell me your " +
             'Animal by saying, my Animal is dog';
+        callback(sessionAttributes,
+             buildSpeechletResponse(null, cardTitle, speechOutput, repromptText, shouldEndSession));
+
     }
 
-    callback(sessionAttributes,
-         buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession, sessionAttributes));
+
+    
 }
+
+
+
+// async.waterfall([
+//     function(callback){
+//         callback(null, 'one', 'two');
+//     },
+//     function(arg1, arg2, callback){
+//         // arg1 now equals 'one' and arg2 now equals 'two'
+//         callback(null, 'three');
+//     },
+//     function(arg1, callback){
+//         // arg1 now equals 'three'
+//         callback(null, 'done');
+//     }
+// ], function (err, result) {
+//    // result now equals 'done'    
+// });
+
 
 function getAnimalFromSession(intent, session, callback) {
     let favoriteAnimal;
@@ -197,7 +235,7 @@ function getAnimalFromSession(intent, session, callback) {
     // will end.
 
     callback(sessionAttributes,
-         buildSpeechletResponse(intent.name, speechOutput, repromptText, shouldEndSession, sessionAttributes));
+         buildSpeechletResponse(sounds, intent.name, speechOutput, repromptText, shouldEndSession));
 }
 
 

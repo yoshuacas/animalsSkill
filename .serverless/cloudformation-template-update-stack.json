@@ -5,10 +5,10 @@
     "ServerlessDeploymentBucket": {
       "Type": "AWS::S3::Bucket"
     },
-    "PlaySoundLogGroup": {
+    "HelloLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/aws-animalskill-nodejs-dev-playSound"
+        "LogGroupName": "/aws/lambda/aws-animalskill-nodejs-dev-hello"
       }
     },
     "IamRoleLambdaExecution": {
@@ -76,7 +76,7 @@
                     [
                       {
                         "Fn::GetAtt": [
-                          "PlaySoundLogGroup",
+                          "HelloLogGroup",
                           "Arn"
                         ]
                       },
@@ -95,17 +95,17 @@
         ]
       }
     },
-    "PlaySoundLambdaFunction": {
+    "HelloLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-animalskill-nodejs/dev/1488112910078-2017-02-26T12:41:50.078Z/aws-animalskill-nodejs.zip"
+          "S3Key": "serverless/aws-animalskill-nodejs/dev/1488120182476-2017-02-26T14:43:02.476Z/aws-animalskill-nodejs.zip"
         },
-        "FunctionName": "aws-animalskill-nodejs-dev-playSound",
-        "Handler": "handler",
+        "FunctionName": "aws-animalskill-nodejs-dev-hello",
+        "Handler": "handler.hello",
         "MemorySize": 1024,
         "Role": {
           "Fn::GetAtt": [
@@ -121,14 +121,14 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "PlaySoundLambdaVersionL2h8cZQCD8itXtovolaAjiwqoHU6YUO5NcKO2h4RQ": {
+    "HelloLambdaVersionTeSB56pWhFiopcIBzeopp0NukslPile4pCvVjf8Tg": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "PlaySoundLambdaFunction"
+          "Ref": "HelloLambdaFunction"
         },
-        "CodeSha256": "L2h8cZQC+D8itXtovolaAjiwqoHU6YUO+5NcKO2h4RQ="
+        "CodeSha256": "TeSB56pWhFiopcIBzeopp0NukslPile4pCvV/jf8+Tg="
       }
     }
   },
@@ -138,10 +138,10 @@
         "Ref": "ServerlessDeploymentBucket"
       }
     },
-    "PlaySoundLambdaFunctionQualifiedArn": {
+    "HelloLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "PlaySoundLambdaVersionL2h8cZQCD8itXtovolaAjiwqoHU6YUO5NcKO2h4RQ"
+        "Ref": "HelloLambdaVersionTeSB56pWhFiopcIBzeopp0NukslPile4pCvVjf8Tg"
       }
     }
   }

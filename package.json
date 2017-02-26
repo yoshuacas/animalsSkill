@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/yoshuacas/animalsSkill/issues"
   },
-  "homepage": "https://github.com/yoshuacas/animalsSkill#readme"
+  "homepage": "https://github.com/yoshuacas/animalsSkill#readme",
+  "dependencies": {
+    "async": "^2.1.5"
+  }
 }
