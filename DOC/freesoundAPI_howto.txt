@@ -1,0 +1,70 @@
+curl "http://www.freesound.org/apiv2/search/text/?query=dogs&token=eKaYrlWbsI7lBdB0TcuGTU8CBVhqECZAMTBD5jgs"
+
+
+http://www.freesound.org/apiv2/sounds/199261/?token=eKaYrlWbsI7lBdB0TcuGTU8CBVhqECZAMTBD5jgs
+
+{
+  "id": 199261,
+  "url": "http://www.freesound.org/people/felix.blume/sounds/199261/",
+  "name": "A dog barking (close recording)",
+  "tags": [
+    "center",
+    "dogs",
+    "grunt",
+    "bark",
+    "growing",
+    "missouri",
+    "CD130507T024",
+    "moaning",
+    "dog",
+    "felix",
+    "grunting",
+    "usa",
+    "barking",
+    "blume",
+    "moan"
+  ],
+  "description": "A dog is barking, in Missouri (USA).\r\n\r\nSound recorded by a MS setup Schoeps CCM41+CCM8\r\nSound Devices 788T recorder with CL8\r\nMS is encoded in STEREO Left-Right\r\nrecorded in may 2013 in Missouri (USA)\r\nSound Reference: @CD130507T024\r\n\r\nmore sounds on www.felixblume.com\r\n\r\nPlease rate or comment the sound if you like it!",
+  "geotag": "37.7039237212 -93.470993042",
+  "created": "2013-09-10T15:47:54.478262",
+  "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+  "type": "wav",
+  "channels": 2,
+  "filesize": 11927566,
+  "bitrate": 4500,
+  "bitdepth": 24,
+  "duration": 20.7056,
+  "samplerate": 96000,
+  "username": "felix.blume",
+  "pack": "http://www.freesound.org/apiv2/packs/8598/",
+  "download": "https://www.freesound.org/apiv2/sounds/199261/download/",
+  "bookmark": "https://www.freesound.org/apiv2/sounds/199261/bookmark/",
+  "previews": {
+    "preview-lq-ogg": "http://www.freesound.org/data/previews/199/199261_1661766-lq.ogg",
+    "preview-lq-mp3": "http://www.freesound.org/data/previews/199/199261_1661766-lq.mp3",
+    "preview-hq-ogg": "http://www.freesound.org/data/previews/199/199261_1661766-hq.ogg",
+    "preview-hq-mp3": "http://www.freesound.org/data/previews/199/199261_1661766-hq.mp3"
+  },
+  "images": {
+    "waveform_l": "http://www.freesound.org/data/displays/199/199261_1661766_wave_L.png",
+    "waveform_m": "http://www.freesound.org/data/displays/199/199261_1661766_wave_M.png",
+    "spectral_m": "http://www.freesound.org/data/displays/199/199261_1661766_spec_M.jpg",
+    "spectral_l": "http://www.freesound.org/data/displays/199/199261_1661766_spec_L.jpg"
+  },
+  "num_downloads": 8375,
+  "avg_rating": 4.419354838709675,
+  "num_ratings": 31,
+  "rate": "https://www.freesound.org/apiv2/sounds/199261/rate/",
+  "comments": "http://www.freesound.org/apiv2/sounds/199261/comments/",
+  "num_comments": 16,
+  "comment": "https://www.freesound.org/apiv2/sounds/199261/comment/",
+  "similar_sounds": "http://www.freesound.org/apiv2/sounds/199261/similar/",
+  "analysis": "No descriptors specified. You should indicate which descriptors you want with the 'descriptors' request parameter.",
+  "analysis_frames": "http://www.freesound.org/data/analysis/199/199261_1661766_frames.json",
+  "analysis_stats": "http://www.freesound.org/apiv2/sounds/199261/analysis/"
+}
+
+
+Sound to play 
+http://www.freesound.org/data/previews/199/199261_1661766-lq.mp3
+
