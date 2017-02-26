@@ -1,0 +1,29 @@
+{
+  "session": {
+    "sessionId": "SessionId.a2000d13-dbfd-47fa-a288-d7d45c33c0ce",
+    "application": {
+      "applicationId": "amzn1.ask.skill.d1f3039b-1d5d-4901-bdb7-966e9761aaf7"
+    },
+    "attributes": {},
+    "user": {
+      "userId": "amzn1.ask.account.AFQLADZUZI75E6A5YS5L73QXUQBOS5R2FLU7XI3MXTNG63NUAAA4VTEOJ2J7QAXVBE5BPZKLZ3X57D3KDVDF6LEM33W57J7Z5UEE4XMQRXG2LYAMI2I7AAIWHM2IAETATFCVHCP7KNA2NABHC3RE7AG5WHIHRBVDZSMW7E2ZJK6M42KNE2ZHBP2NKV4ORQP23OFAE3OEUH3SSWI"
+    },
+    "new": true
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "EdwRequestId.61c70254-4594-441c-b337-ce90891e4bef",
+    "locale": "en-US",
+    "timestamp": "2017-02-26T03:18:01Z",
+    "intent": {
+      "name": "GetAnimalSound",
+      "slots": {
+        "Animal": {
+          "name": "Animal",
+          "value": "cat"
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}
