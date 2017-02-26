@@ -1,0 +1,19 @@
+{
+  "name": "animals_skill",
+  "version": "1.0.0",
+  "description": "",
+  "main": "animalSoundsSkill.js",
+  "scripts": {
+    "test": "lambda-local -f animalSoundsSkill.js -e events/GetAnimalSound_cat.json -t 20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoshuacas/animalsSkill.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yoshuacas/animalsSkill/issues"
+  },
+  "homepage": "https://github.com/yoshuacas/animalsSkill#readme"
+}
