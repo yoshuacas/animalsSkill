@@ -1,0 +1,25 @@
+
+
+
+{
+    "intents": [
+        {
+            "intent": "AMAZON.PauseIntent"
+        },
+        {
+            "intent": "AMAZON.ResumeIntent"
+        },
+        {
+            "intent": "GetAnimalSound",
+            "slots": [
+                    {
+                      "name": "Animal",
+                      "type": "AMAZON.Animal"
+                    }
+            ]
+        },
+        {
+            "intent": "GetCurrentAnimal"
+        }
+    ]
+}
